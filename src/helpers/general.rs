@@ -96,14 +96,6 @@ pub fn save_api_endpoints(api_endpoints: &String) {
 }
 
 #[cfg(test)]
-/// Tests for extending the AI function and making an AI task request.
-///
-/// The `tests_extending_ai_function` test calls `extend_ai_function` to extend the
-/// `convert_user_input_to_goal` function with a sample user input, and asserts the
-/// returned `extended_msg` has the expected `role` field.
-///
-/// The `test_ai_task_request` test makes an actual async request to the AI with a
-/// sample input, and asserts the response length is greater than 20 characters.
 mod tests {
     use super::*;
     use crate::ai_functions::aifunc_managing::convert_user_input_to_goal;
