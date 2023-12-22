@@ -9,13 +9,11 @@ use async_trait::async_trait;
 use reqwest::Client;
 use std::time::Duration;
 
-
 // Solution Architect
 #[derive(Debug)]
 pub struct AgentSolutionArchitect {
-    attributes: BasicAgent
-    // factsheet: FactSheet,
-    // agents: Vec<Box<dyn SpecialFunctions>>,
+    attributes: BasicAgent, // factsheet: FactSheet,
+                            // agents: Vec<Box<dyn SpecialFunctions>>,
 }
 
 impl AgentSolutionArchitect {
@@ -45,5 +43,22 @@ impl AgentSolutionArchitect {
         factsheet.project_scope = Some(ai_response.clone());
         self.attributes.update_state(AgentState::Finished);
         return ai_response;
+    }
+
+    async fn call_determine_external_urls<'a>(
+        &mut self,
+        factsheet: &'a mut FactSheet<'a>,
+        msg_context: String,
+    ) {
+        let ai_response = ai_task_request_decoded::<Vec<String>>(
+            &msg_context,
+            &self.attributes.position,
+            get_function_string!(print_site_urls),
+            print_site_urls,
+        )
+        .await;
+
+        factsheet.external_urls = Some(ai_response);
+        self.attributes.state = AgentState::UnitTesting;
     }
 }
