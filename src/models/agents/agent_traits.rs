@@ -20,8 +20,8 @@ pub struct ProjectScope {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
-pub struct FactSheet<'a> {
-    pub project_description: &'a str,
+pub struct FactSheet {
+    pub project_description: String,
     pub project_scope: Option<ProjectScope>,
     pub external_urls: Option<Vec<String>>,
     pub backend_code: Option<String>,
@@ -30,8 +30,10 @@ pub struct FactSheet<'a> {
 
 #[async_trait]
 pub trait SpecialFunctions: Debug {
+    // Used to that manager can get attributes from Agents
     fn get_attributes_from_agent(&self) -> &BasicAgent;
 
+    // This function will allow agents to execute their logic
     async fn execute(
         &mut self,
         factsheet: &mut FactSheet,
