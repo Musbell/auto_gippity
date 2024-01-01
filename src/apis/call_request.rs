@@ -16,7 +16,7 @@ pub async fn call_gpt(messages: Vec<Message>) -> Result<String, Box<dyn std::err
 
     // Confirm endpoint
     let url: &str = "https://api.openai.com/v1/chat/completions"; // OPENAI
-    //   let url: &str = "http://localhost:1234/v1/chat/completions";
+                                                                  //   let url: &str = "http://localhost:1234/v1/chat/completions";
 
     // Create headers
     let mut headers: HeaderMap = HeaderMap::new();
